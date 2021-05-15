@@ -1,0 +1,16 @@
+---
+# tasks file for Ansible-Haproxy-Role---
+- name: "Installing Haproxy Software"
+  package:
+          name: "haproxy"
+          state: present
+- name: "Deploying Dynamically updated haproxy.cfg"
+  template:
+          src: "haproxy.cfg.j2"
+          dest: "/etc/haproxy/haproxy.cfg"
+  notify: restart_haproxy
+- name: "Starting Haproxy Service"
+  service:
+          name: "haproxy"
+          state: started
+          enabled: True
